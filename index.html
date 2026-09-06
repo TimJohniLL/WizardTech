@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wizard Tech — IT Support, Yuba-Sutter &amp; Remote Worldwide</title>
+<meta name="description" content="Wizard Tech provides remote and on-site IT support: troubleshooting, security, networking, and consulting for individuals and businesses. Yuba-Sutter local, remote worldwide.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink: #13141c;
+    --ink-2: #1b1c28;
+    --parchment: #ece6d9;
+    --parchment-dim: #b9b2a3;
+    --ember: #c9973c;
+    --ember-dim: #8a6d38;
+    --violet: #493a72;
+    --slate: #7d8096;
+    --rule: rgba(236, 230, 217, 0.12);
+    --max: 760px;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body{
+    margin:0;
+    background: var(--ink);
+    color: var(--parchment);
+    font-family: 'IBM Plex Sans', -apple-system, sans-serif;
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 500;
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+
+  a { color: inherit; }
+
+  .wrap{
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  /* ---------- Hero ---------- */
+
+  .hero{
+    position: relative;
+    padding: 96px 0 72px;
+    overflow: hidden;
+  }
+
+  .hero::before{
+    content: "";
+    position: absolute;
+    top: -180px;
+    left: 50%;
+    width: 640px;
+    height: 640px;
+    transform: translateX(-50%);
+    background: radial-gradient(circle, rgba(201,151,60,0.16) 0%, rgba(201,151,60,0) 68%);
+    pointer-events: none;
+  }
+
+  @media (prefers-reduced-motion: no-preference){
+    .hero::before{
+      animation: glow 8s ease-in-out infinite;
+    }
+  }
+
+  @keyframes glow{
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+  }
+
+  .mark{
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--ember);
+    margin-bottom: 28px;
+    position: relative;
+  }
+
+  .hero h1{
+    font-size: clamp(2.4rem, 6vw, 3.4rem);
+    color: var(--parchment);
+    max-width: 11ch;
+    line-height: 1.08;
+  }
+
+  .hero p.lede{
+    margin-top: 22px;
+    max-width: 42ch;
+    color: var(--parchment-dim);
+    font-size: 1.08rem;
+  }
+
+  .cta-row{
+    margin-top: 36px;
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .btn{
+    display: inline-block;
+    padding: 13px 24px;
+    background: var(--ember);
+    color: var(--ink);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border-radius: 3px;
+  }
+
+  .btn.ghost{
+    background: transparent;
+    border: 1px solid var(--rule);
+    color: var(--parchment);
+  }
+
+  .oncall{
+    margin-top: 28px;
+    font-size: 0.88rem;
+    color: var(--slate);
+    display: flex;
+    align-items: center;
+    gap: 9px;
+  }
+
+  .oncall .dot{
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--ember);
+    flex-shrink: 0;
+  }
+
+  /* ---------- Sections ---------- */
+
+  section{
+    padding: 56px 0;
+    border-top: 1px solid var(--rule);
+  }
+
+  .section-head{
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 24px;
+    margin-bottom: 34px;
+  }
+
+  .section-head h2{
+    font-size: 1.6rem;
+    color: var(--parchment);
+  }
+
+  .section-head .note{
+    font-size: 0.88rem;
+    color: var(--slate);
+    white-space: nowrap;
+  }
+
+  /* Services list — hairline rows, not cards */
+
+  .service-list{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .service-list li{
+    display: grid;
+    grid-template-columns: 1fr;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .service-list li:first-child{
+    border-top: 1px solid var(--rule);
+  }
+
+  .service-list .name{
+    font-weight: 600;
+    color: var(--parchment);
+  }
+
+  .service-list .desc{
+    color: var(--parchment-dim);
+    font-size: 0.95rem;
+    margin-top: 3px;
+  }
+
+  /* Two-path split */
+
+  .paths{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+  }
+
+  @media (max-width: 640px){
+    .paths{ grid-template-columns: 1fr; }
+  }
+
+  .path{
+    border-left: 2px solid var(--ember-dim);
+    padding-left: 20px;
+  }
+
+  .path h3{
+    font-size: 1.15rem;
+    color: var(--parchment);
+    margin-bottom: 8px;
+  }
+
+  .path p{
+    color: var(--parchment-dim);
+    font-size: 0.95rem;
+    margin: 0;
+  }
+
+  /* Who it's for */
+
+  .who{
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .who span{
+    border: 1px solid var(--rule);
+    padding: 8px 16px;
+    border-radius: 999px;
+    font-size: 0.88rem;
+    color: var(--parchment-dim);
+  }
+
+  /* Area */
+
+  .area-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+  }
+
+  @media (max-width: 640px){
+    .area-grid{ grid-template-columns: 1fr; }
+  }
+
+  .area-grid h3{
+    font-size: 1.05rem;
+    color: var(--ember);
+    margin-bottom: 8px;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 600;
+  }
+
+  .area-grid p{
+    color: var(--parchment-dim);
+    margin: 0;
+    font-size: 0.95rem;
+  }
+
+  /* Footer / contact */
+
+  footer{
+    padding: 64px 0 72px;
+    border-top: 1px solid var(--rule);
+  }
+
+  footer h2{
+    font-size: 1.8rem;
+    color: var(--parchment);
+    max-width: 14ch;
+  }
+
+  .contact-block{
+    margin-top: 28px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 36px;
+    align-items: baseline;
+  }
+
+  .contact-block a.phone{
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 1.6rem;
+    color: var(--ember);
+    text-decoration: none;
+  }
+
+  .contact-block .who-name{
+    color: var(--slate);
+    font-size: 0.92rem;
+  }
+
+  .fine{
+    margin-top: 48px;
+    color: var(--slate);
+    font-size: 0.82rem;
+  }
+
+</style>
+</head>
+<body>
+
+<div class="wrap hero">
+  <div class="mark">Wizard&nbsp;Tech</div>
+  <h1>IT support that actually shows up.</h1>
+  <p class="lede">On-site across the Yuba-Sutter area, remote anywhere in the world. Troubleshooting, security, and infrastructure work handled by one person who answers the phone.</p>
+  <div class="cta-row">
+    <a class="btn" href="tel:5304154222">Call 530-415-4222</a>
+    <a class="btn ghost" href="#services">See what I handle</a>
+  </div>
+  <div class="oncall"><span class="dot"></span> On-call support available — small tasks and full projects</div>
+</div>
+
+<section id="services" class="wrap">
+  <div class="section-head">
+    <h2>What I handle</h2>
+    <span class="note">Individuals to large businesses</span>
+  </div>
+  <ul class="service-list">
+    <li>
+      <div class="name">Remote troubleshooting</div>
+      <div class="desc">Diagnosing and fixing issues over a remote session, no site visit required.</div>
+    </li>
+    <li>
+      <div class="name">Virus &amp; malware removal</div>
+      <div class="desc">Cleaning infected systems and closing the gap that let it in.</div>
+    </li>
+    <li>
+      <div class="name">Network setup</div>
+      <div class="desc">Routers, Wi-Fi coverage, wired infrastructure, VPNs.</div>
+    </li>
+    <li>
+      <div class="name">Email &amp; signatures</div>
+      <div class="desc">Account configuration, migration, and consistent signature management across a team.</div>
+    </li>
+    <li>
+      <div class="name">File storage &amp; cloud</div>
+      <div class="desc">Setting up and untangling cloud storage, backups, and file-sharing systems.</div>
+    </li>
+    <li>
+      <div class="name">VoIP</div>
+      <div class="desc">Phone system setup for a home office or a full business line.</div>
+    </li>
+    <li>
+      <div class="name">Security</div>
+      <div class="desc">Data protection and cybersecurity hardening for individuals and businesses alike.</div>
+    </li>
+    <li>
+      <div class="name">Small business IT support</div>
+      <div class="desc">Ongoing tech support for businesses without a full-time IT person — and I also work with larger organizations.</div>
+    </li>
+  </ul>
+</section>
+
+<section class="wrap">
+  <div class="section-head">
+    <h2>Two ways to work with me</h2>
+  </div>
+  <div class="paths">
+    <div class="path">
+      <h3>Small tasks, on call</h3>
+      <p>Quick fixes, data entry, one-off troubleshooting — call when something comes up, get it handled without a long engagement.</p>
+    </div>
+    <div class="path">
+      <h3>Projects &amp; consulting</h3>
+      <p>Larger builds and ongoing work: network setup, security overhauls, migrations, or standing IT support for a business.</p>
+    </div>
+  </div>
+</section>
+
+<section class="wrap">
+  <div class="section-head">
+    <h2>Where I work</h2>
+  </div>
+  <div class="area-grid">
+    <div>
+      <h3>On-site</h3>
+      <p>Yuba City, Marysville, and the greater Yuba-Sutter area.</p>
+    </div>
+    <div>
+      <h3>Remote</h3>
+      <p>Anywhere — remote support isn't limited by geography.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="wrap">
+  <h2>Get in touch</h2>
+  <div class="contact-block">
+    <a class="phone" href="tel:5304154222">530-415-4222</a>
+    <span class="who-name">TJ Hayes — Wizard Tech</span>
+  </div>
+  <div class="fine">Yuba-Sutter, California · Remote support worldwide</div>
+</footer>
+
+</body>
+</html>
