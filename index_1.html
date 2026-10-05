@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WizardTech — IT Support, Consulting &amp; Computer Help | Yuba-Sutter &amp; Remote</title>
+<meta name="description" content="WizardTech provides remote and on-site IT support: troubleshooting, security, networking, and consulting for individuals and businesses. Yuba-Sutter local, remote worldwide.">
+<meta name="theme-color" content="#071a36">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23071a36'/%3E%3Ctext x='32' y='44' font-size='34' font-family='Georgia,serif' text-anchor='middle' fill='%23ff7a66'%3EW%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Almendra:wght@400;700&family=Exo+2:wght@700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink: #071a36;
+    --ink-2: #0f2a52;
+    --parchment: #e8f0fa;
+    --parchment-dim: #aebdd2;
+    --ember: #ff7a66;
+    --btn: #d04432;
+    --btn-hover: #e0553f;
+    --wizard-blue: #0b2a5c;
+    --ember-dim: #2a7d86;
+    --cyan: #35e0ea;
+    --slate: #8fa3c0;
+    --rule: rgba(232, 240, 250, 0.14);
+    --max: 760px;
+  }
+
+  /* Light middle of the page: re-map the color variables so every component adapts */
+  .light{
+    --ink: #eef3f8;
+    --ink-2: #ffffff;
+    --parchment: #12233f;
+    --parchment-dim: #4a5a73;
+    --slate: #5b6b84;
+    --rule: rgba(18, 35, 63, 0.14);
+    --ember: #d04432;
+    --ember-dim: #2a7d86;
+    --cyan: #0b6f79;
+    background: #eef3f8;
+    color: #12233f;
+  }
+
+  .band-dark{ background: var(--ink); }
+
+  /* Top bar with the wordmark */
+  .topbar{ background: #eef3f8; border-bottom: 1px solid rgba(18,35,63,0.12); }
+
+  .topbar-in{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 14px;
+    padding-block: 14px;
+  }
+
+  .wordmark{
+    font-family: 'Almendra', Georgia, serif;
+    font-weight: 700;
+    font-size: clamp(1.7rem, 5vw, 2.2rem);
+    line-height: 1;
+    text-decoration: none;
+    color: var(--wizard-blue);
+    white-space: nowrap;
+  }
+
+  .wordmark .t{
+    font-family: 'Exo 2', 'IBM Plex Sans', sans-serif;
+    font-weight: 700;
+    font-size: 0.92em;
+    margin-left: 2px;
+    color: var(--btn);
+  }
+
+  .topbar .btn{ padding: 10px 16px; white-space: nowrap; }
+  .topbar .btn .short{ display: none; }
+
+  @media (max-width: 480px){
+    .topbar .btn .long{ display: none; }
+    .topbar .btn .short{ display: inline; }
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  @media (prefers-reduced-motion: reduce){
+    html { scroll-behavior: auto; }
+  }
+
+  body{
+    margin:0;
+    background: var(--ink);
+    color: var(--parchment);
+    font-family: 'IBM Plex Sans', -apple-system, sans-serif;
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 500;
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+
+  a { color: inherit; }
+
+  a:focus-visible{
+    outline: 2px solid var(--cyan);
+    outline-offset: 3px;
+  }
+
+  /* FIX: .wrap only controls width and LEFT/RIGHT padding.
+     Vertical padding is set separately (padding-block) on hero/section/footer,
+     so the two rules no longer overwrite each other. */
+  .wrap{
+    max-width: var(--max);
+    margin: 0 auto;
+    padding-inline: 28px;
+  }
+
+  /* ---------- Hero ---------- */
+
+  .hero{
+    position: relative;
+    padding-block: 64px 72px;
+    overflow: hidden;
+  }
+
+  .hero::before{
+    content: "";
+    position: absolute;
+    top: -180px;
+    left: 50%;
+    width: 640px;
+    height: 640px;
+    transform: translateX(-50%);
+    background: radial-gradient(circle, rgba(53,224,234,0.13) 0%, rgba(53,224,234,0) 68%);
+    pointer-events: none;
+  }
+
+  @media (prefers-reduced-motion: no-preference){
+    .hero::before{
+      animation: glow 8s ease-in-out infinite;
+    }
+  }
+
+  @keyframes glow{
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+  }
+
+  .mark{
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--ember);
+    margin-bottom: 4px;
+    position: relative;
+  }
+
+  .mark-sub{
+    font-size: 0.85rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--parchment-dim);
+    margin-bottom: 28px;
+    position: relative;
+  }
+
+  .hero h1{
+    font-size: clamp(2.4rem, 6vw, 3.4rem);
+    color: var(--parchment);
+    max-width: 11ch;
+    line-height: 1.08;
+    position: relative;
+  }
+
+  .hero p.lede{
+    margin-top: 22px;
+    max-width: 42ch;
+    color: var(--parchment-dim);
+    font-size: 1.08rem;
+    position: relative;
+  }
+
+  .cta-row{
+    margin-top: 36px;
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+    align-items: center;
+    position: relative;
+  }
+
+  .btn{
+    display: inline-block;
+    padding: 13px 24px;
+    background: var(--btn);
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border: 1px solid var(--btn);
+    border-radius: 3px;
+    transition: background .15s, border-color .15s;
+  }
+
+  .btn:hover{ background: var(--btn-hover); border-color: var(--btn-hover); }
+
+  .btn.ghost{
+    background: transparent;
+    border: 1px solid rgba(232, 240, 250, 0.28);
+    color: var(--parchment);
+  }
+
+  .btn.ghost:hover{
+    background: rgba(232,240,250,0.07);
+    border-color: var(--parchment-dim);
+  }
+
+  .textlink{
+    color: var(--parchment-dim);
+    font-size: 0.95rem;
+    text-underline-offset: 4px;
+  }
+
+  .textlink:hover{ color: var(--parchment); }
+
+  .oncall{
+    margin-top: 28px;
+    font-size: 0.88rem;
+    color: var(--slate);
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    position: relative;
+  }
+
+  .oncall .dot{
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--cyan);
+    flex-shrink: 0;
+  }
+
+  /* ---------- Sections ---------- */
+
+  section{
+    padding-block: 56px;
+    border-top: 1px solid var(--rule);
+    scroll-margin-top: 8px;
+  }
+
+  .section-head{
+    display: flex;
+    flex-wrap: wrap;               /* FIX: lets the note drop below the heading on narrow phones */
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 6px 24px;
+    margin-bottom: 34px;
+  }
+
+  .section-head h2{
+    font-size: 1.6rem;
+    color: var(--parchment);
+  }
+
+  .section-head .note{
+    font-size: 0.88rem;
+    color: var(--slate);
+    /* FIX: removed white-space: nowrap, which forced horizontal overflow on small screens */
+  }
+
+  /* Services list — hairline rows, not cards */
+
+  .service-list{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .service-list li{
+    display: grid;
+    grid-template-columns: 1fr;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .service-list li:first-child{
+    border-top: 1px solid var(--rule);
+  }
+
+  .service-list .name{
+    font-weight: 600;
+    color: var(--parchment);
+  }
+
+  .service-list .desc{
+    color: var(--parchment-dim);
+    font-size: 0.95rem;
+    margin-top: 3px;
+  }
+
+  .group-title{
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    margin: 36px 0 12px;
+  }
+
+  .section-head + .group-title{ margin-top: 0; }
+
+  .biz-note{
+    margin: 40px 0 0;
+    padding: 20px 22px;
+    background: var(--ink-2);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--ember);
+    border-radius: 3px;
+  }
+
+  .biz-note h3{
+    font-size: 1.1rem;
+    color: var(--parchment);
+    margin-bottom: 6px;
+  }
+
+  .biz-note p{
+    margin: 0;
+    color: var(--parchment-dim);
+    font-size: 0.97rem;
+  }
+
+  .services-cta{
+    margin: 36px 0 0;
+    padding-left: 20px;
+    border-left: 2px solid var(--ember-dim);
+    color: var(--parchment-dim);
+    font-size: 0.98rem;
+  }
+
+  .service-list .sub{
+    color: var(--slate);
+    font-size: 0.8rem;
+    margin-top: 4px;
+  }
+
+  /* Two-path split */
+
+  .paths{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+  }
+
+  @media (max-width: 640px){
+    .paths{ grid-template-columns: 1fr; }
+  }
+
+  .path{
+    border-left: 2px solid var(--ember-dim);
+    padding-left: 20px;
+  }
+
+  .path h3{
+    font-size: 1.15rem;
+    color: var(--parchment);
+    margin-bottom: 8px;
+  }
+
+  .path p{
+    color: var(--parchment-dim);
+    font-size: 0.95rem;
+    margin: 0;
+  }
+
+  .light .q:hover{ background: #f7fafd; }
+  .light .who span{ background: #ffffff; }
+  .light .area-grid h3{ color: var(--cyan); }
+  .light .path{ border-left-color: var(--ember-dim); }
+
+  /* ---------- Questions ---------- */
+
+  .q-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  .q-grid.featured{ margin-top: 0; margin-bottom: 10px; }
+
+  @media (max-width: 640px){
+    .q-grid{ grid-template-columns: 1fr; }
+  }
+
+  .q{
+    display: block;
+    padding: 14px 16px;
+    background: var(--ink-2);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    color: var(--parchment);
+    text-decoration: none;
+    font-size: 0.95rem;
+    line-height: 1.35;
+    transition: border-color .15s, background .15s;
+  }
+
+  .q:hover{ border-color: var(--ember); background: rgba(232,240,250,0.05); }
+
+  .q.feat{
+    border-left: 3px solid var(--cyan);
+    padding: 16px 18px;
+  }
+
+  .q.feat .qt{
+    display: block;
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 1.15rem;
+    font-weight: 500;
+  }
+
+  .q.feat .qs{
+    display: block;
+    margin-top: 3px;
+    color: var(--parchment-dim);
+    font-size: 0.85rem;
+  }
+
+  .hw-title{
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    margin: 26px 0 10px;
+  }
+
+  .section-head + .hw-title{ margin-top: 0; }
+
+  .who-text{
+    margin: 0;
+    max-width: 52ch;
+    color: var(--parchment-dim);
+    font-size: 1rem;
+  }
+
+  /* Who it's for */
+
+  .who{
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .who span{
+    border: 1px solid var(--rule);
+    padding: 8px 16px;
+    border-radius: 999px;
+    font-size: 0.88rem;
+    color: var(--parchment-dim);
+  }
+
+  /* Area */
+
+  .area-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+  }
+
+  @media (max-width: 640px){
+    .area-grid{ grid-template-columns: 1fr; }
+  }
+
+  .area-grid h3{
+    font-size: 1.05rem;
+    color: var(--ember);
+    margin-bottom: 8px;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 600;
+  }
+
+  .area-line{ max-width: 62ch; }
+  .area-line, .area-grid p{
+    color: var(--parchment-dim);
+    margin: 0;
+    font-size: 0.95rem;
+  }
+
+  /* Footer / contact */
+
+  footer{
+    padding-block: 64px 72px;
+    border-top: 1px solid var(--rule);
+  }
+
+  footer h2{
+    font-size: 1.8rem;
+    color: var(--parchment);
+    max-width: 14ch;
+  }
+
+  footer{ scroll-margin-top: 8px; }
+
+  .form-intro{
+    margin: 14px 0 0;
+    max-width: 52ch;
+    color: var(--parchment-dim);
+    font-size: 0.98rem;
+  }
+
+  .contact-form{
+    margin-top: 28px;
+    display: grid;
+    gap: 18px;
+  }
+
+  .field{ display: grid; gap: 6px; }
+
+  .field-row{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+
+  @media (max-width: 640px){
+    .field-row{ grid-template-columns: 1fr; }
+  }
+
+  .contact-form label{
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--parchment);
+  }
+
+  .contact-form .hint{
+    font-size: 0.82rem;
+    color: var(--slate);
+    font-weight: 400;
+  }
+
+  .contact-form input,
+  .contact-form select,
+  .contact-form textarea{
+    width: 100%;
+    font: inherit;
+    font-size: 16px;            /* 16px stops iPhones zooming in on focus */
+    color: var(--parchment);
+    background: var(--ink-2);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    padding: 12px 14px;
+  }
+
+  .contact-form textarea{ min-height: 140px; resize: vertical; }
+
+  .contact-form input:focus,
+  .contact-form select:focus,
+  .contact-form textarea:focus{
+    outline: 2px solid var(--cyan);
+    outline-offset: 1px;
+    border-color: transparent;
+  }
+
+  .contact-form button.btn{
+    font: inherit;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    justify-self: start;
+  }
+
+  .contact-form button.btn:disabled{ opacity: 0.6; cursor: default; }
+
+  .hp{ position: absolute; left: -9999px; height: 0; width: 0; overflow: hidden; }
+
+  .form-status{
+    min-height: 1.4em;
+    font-size: 0.95rem;
+    color: var(--parchment-dim);
+  }
+
+  .form-status.ok{ color: #8fc98f; }
+  .form-status.err{ color: #e3a08a; }
+
+  .contact-block{
+    margin-top: 28px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 36px;
+    align-items: baseline;
+  }
+
+  .contact-block a.phone{
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 1.6rem;
+    color: var(--ember);
+    text-decoration: none;
+  }
+
+  .contact-block a.phone:hover{ text-decoration: underline; text-underline-offset: 4px; }
+
+  .contact-block .who-name{
+    color: var(--slate);
+    font-size: 0.92rem;
+  }
+
+  .fine{
+    margin-top: 48px;
+    color: var(--slate);
+    font-size: 0.82rem;
+  }
+
+  @media (max-width: 480px){
+    body{ font-size: 16px; }
+    .hero{ padding-block: 64px 56px; }
+  }
+
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap topbar-in">
+    <a class="wordmark" href="#top" aria-label="WizardTech home">Wizard<span class="t">Tech</span></a>
+    <a class="btn" href="tel:9166680465"><span class="long">Call 916-668-0465</span><span class="short">Call</span></a>
+  </div>
+</header>
+
+<div class="band-dark" id="top">
+<div class="wrap hero">
+  <div class="mark">IT Consulting &amp; Tech Help</div>
+  <div class="mark-sub">Demystifying Technology</div>
+  <h1>IT support that actually shows up.</h1>
+  <p class="lede">On-site across the Yuba-Sutter area, remote anywhere in the world. Over 15 years working in IT, from troubleshooting to security to infrastructure. When you call, I'm the one who answers.</p>
+  <div class="cta-row">
+    <a class="btn" href="tel:9166680465">Call 916-668-0465</a>
+    <a class="btn ghost" href="#contact">Get a free quote</a>
+    <a class="textlink" href="#services">See what I can help with</a>
+  </div>
+  <div class="oncall"><span class="dot"></span> Help available for small tasks and full projects</div>
+</div>
+</div>
+
+<main class="light">
+
+<section id="services" class="wrap">
+  <div class="section-head">
+    <h2>Services</h2>
+  </div>
+  <h3 class="group-title">Everyday help</h3>
+  <ul class="service-list">
+    <li>
+      <div class="name">Repair &amp; custom builds</div>
+      <div class="desc">Slow, overheating, or won't boot? I diagnose and repair laptops and desktops, upgrade RAM, SSDs, and GPUs, and build custom PCs.</div>
+    </li>
+    <li>
+      <div class="name">OS installs, updates &amp; migration</div>
+      <div class="desc">Clean installs, Windows 11 upgrades, and Windows Update problems. I move files, apps, and settings to a new PC or Mac and securely wipe the old one.</div>
+    </li>
+    <li>
+      <div class="name">Setup, training &amp; how-to</div>
+      <div class="desc">One-on-one help learning your devices and apps, at your home or office. Small group sessions available.</div>
+    </li>
+    <li>
+      <div class="name">Buying advice &amp; planning</div>
+      <div class="desc">Tell me what you need it for, and I'll compare options, find deals, and plan equipment, for a household or a whole office.</div>
+    </li>
+    <li>
+      <div class="name">Remote help, including emergencies</div>
+      <div class="desc">Fixes over a secure remote session. For urgent problems, I can take control of your computer with your permission.</div>
+    </li>
+  </ul>
+  <h3 class="group-title">Devices &amp; peripherals</h3>
+  <ul class="service-list">
+    <li>
+      <div class="name">Phones, tablets &amp; Macs</div>
+      <div class="desc">Setup, app problems, iCloud and Apple ID, and charging issues (loose connections, worn ports). No screen or board repair.</div>
+    </li>
+    <li>
+      <div class="name">Printers, scanners &amp; copiers</div>
+      <div class="desc">Setup, Wi-Fi drop-outs, and printers that keep going offline.</div>
+    </li>
+    <li>
+      <div class="name">Smart home, cameras &amp; TV</div>
+      <div class="desc">Video doorbells, security cameras, and connecting your phone or computer to a TV.</div>
+    </li>
+  </ul>
+  <h3 class="group-title">Backups &amp; data</h3>
+  <ul class="service-list">
+    <li>
+      <div class="name">Photo, video &amp; memory backups</div>
+      <div class="desc">Automatic backups to Google Photos, iCloud, OneDrive, Dropbox, or drives you own, with a plan that works. I also fix sync problems and move your files over.</div>
+    </li>
+    <li>
+      <div class="name">Data recovery</div>
+      <div class="desc">Failed drives, USB and SD cards, or a phone that won't turn on. Recovery isn't always possible; I'll tell you what to expect first.</div>
+    </li>
+    <li>
+      <div class="name">Business backup &amp; disaster recovery</div>
+      <div class="desc">Image-based backups to a NAS or cloud, with restore testing so you know they work.</div>
+    </li>
+  </ul>
+  <h3 class="group-title">Security &amp; accounts</h3>
+  <ul class="service-list">
+    <li>
+      <div class="name">Account security &amp; recovery</div>
+      <div class="desc">Recover hacked or locked-out email, Apple, Google, and Microsoft accounts, then lock them down with a password manager, authenticator app, and passkeys.</div>
+    </li>
+    <li>
+      <div class="name">Virus, malware &amp; scam cleanup</div>
+      <div class="desc">Pop-ups, a device that suddenly crawls, or a message you don't trust. I clean it up, check suspicious emails, texts, and calls, and deploy antivirus or endpoint protection.</div>
+    </li>
+  </ul>
+  <h3 class="group-title">Networking &amp; communications</h3>
+  <ul class="service-list">
+    <li>
+      <div class="name">Network setup, firewall &amp; VPN</div>
+      <div class="desc">Routers, switches, mesh and access points, and Ethernet runs, so Wi-Fi reaches the whole building. Firewalls, VLANs for staff, guests, and equipment, and VPN access to the office.</div>
+    </li>
+    <li>
+      <div class="name">Email &amp; domain setup</div>
+      <div class="desc">Email on all your devices, business email on your own domain, and DNS records (MX, SPF, DKIM, DMARC).</div>
+    </li>
+    <li>
+      <div class="name">Phone systems &amp; video calls</div>
+      <div class="desc">VoIP phones, Zoom and Teams, and meeting-room setups.</div>
+    </li>
+  </ul>
+  <h3 class="group-title">Business &amp; specialty</h3>
+  <ul class="service-list">
+    <li>
+      <div class="name">Microsoft 365, Entra ID &amp; Active Directory</div>
+      <div class="desc">User accounts, licensing, mailboxes, Intune, and group policy. I clean up messy tenants and domains. Google Workspace too.</div>
+    </li>
+    <li>
+      <div class="name">Servers, POS &amp; business software</div>
+      <div class="desc">Windows Server, point-of-sale systems, and business software: installs, updates, and troubleshooting.</div>
+    </li>
+    <li>
+      <div class="name">Documentation, guides &amp; plain-language writing</div>
+      <div class="desc">SOPs, software user guides, and employee or customer instructions, plus network diagrams and equipment lists. I also proofread documents and explain technical material in plain language.</div>
+    </li>
+    <li>
+      <div class="name">Ongoing IT support</div>
+      <div class="desc">Regular tech help without hiring IT staff, with RMM monitoring to catch problems early and one number to call when something breaks.</div>
+    </li>
+  </ul>
+  <p class="services-cta">Don't see what you need? Call and describe the problem in your own words. There are no silly questions.</p>
+</section>
+
+<section class="wrap">
+  <div class="section-head">
+    <h2>How pricing works</h2>
+  </div>
+  <div class="path">
+    <h3>Free quotes, no surprises</h3>
+    <p>For most jobs I give a flat price or a time estimate up front. If something turns out bigger than expected, I'll tell you before going further, not after. You don't need a big project or a contract to get started; small jobs are welcome.</p>
+  </div>
+</section>
+
+<section class="wrap">
+  <div class="section-head">
+    <h2>Where I work</h2>
+  </div>
+  <p class="area-line">Home visits are welcome. I come to you, whether that's your home, home office, or business, in Yuba City, Marysville, and the greater Yuba-Sutter area, and farther for the right job. Remote support works anywhere.</p>
+</section>
+
+</main>
+
+<div class="band-dark">
+<footer class="wrap" id="contact">
+  <h2>Get in touch</h2>
+  <p class="form-intro">Not sure if I can help? Describe it in your own words, no tech terms needed, and I'll tell you honestly. Quotes are free. Please don't include passwords or other sensitive details.</p>
+
+  <form class="contact-form" id="contactForm" novalidate>
+    <!-- SETUP: replace the value below with your Web3Forms access key -->
+    <input type="hidden" name="access_key" value="a9ba7909-6f21-4c79-8781-d286a98bbe9b">
+    <input type="hidden" name="subject" value="New inquiry from WizardTech website">
+    <input type="hidden" name="from_name" value="WizardTech website">
+    <div class="hp" aria-hidden="true"><label>Leave this empty <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off"></label></div>
+
+    <div class="field">
+      <label for="f-name">Your name</label>
+      <input id="f-name" name="name" type="text" autocomplete="name" required>
+    </div>
+
+    <div class="field-row">
+      <div class="field">
+        <label for="f-email">Email <span class="hint">(either email or phone works)</span></label>
+        <input id="f-email" name="email" type="email" autocomplete="email">
+      </div>
+      <div class="field">
+        <label for="f-phone">Phone</label>
+        <input id="f-phone" name="phone" type="tel" autocomplete="tel">
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="f-topic">What's this about?</label>
+      <select id="f-topic" name="topic">
+        <option>Not sure / need help figuring it out</option>
+        <optgroup label="Common questions">
+          <option>Is this a scam?</option>
+          <option>What should I buy?</option>
+          <option>How do I use this?</option>
+          <option>How do I move to something new?</option>
+          <option>My computer is slow, freezing, or crashing</option>
+          <option>It won't turn on, or shows an error screen</option>
+          <option>My phone or computer has pop-ups or a virus</option>
+          <option>My internet or Wi-Fi is slow, dropping, or down</option>
+          <option>My email isn't sending or receiving</option>
+          <option>I'm locked out of an account, or I think I was hacked</option>
+          <option>My printer won't print or keeps going offline</option>
+          <option>My phone won't charge</option>
+          <option>I need to back up my photos and files</option>
+          <option>I lost files or photos</option>
+          <option>I want to put my phone or computer on the TV</option>
+          <option>My computer is overheating, loud, or the battery dies fast</option>
+          <option>I want to build or upgrade a computer</option>
+          <option>How do I protect my devices?</option>
+          <option>I need a network set up</option>
+        </optgroup>
+        <optgroup label="Other">
+          <option>Help for my business</option>
+          <option>Something else</option>
+        </optgroup>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="f-message">Tell me what's going on <span class="hint">(or what you'd like to learn or get done)</span></label>
+      <textarea id="f-message" name="message" required></textarea>
+    </div>
+
+    <button class="btn" type="submit" id="f-submit">Send message</button>
+    <div class="form-status" id="formStatus" role="status" aria-live="polite"></div>
+  </form>
+  <div class="contact-block">
+    <a class="phone" href="tel:9166680465">916-668-0465</a>
+    <span class="who-name">TJ Hayes — WizardTech · IT Consulting &amp; Tech Help</span>
+  </div>
+  <div class="fine">Yuba-Sutter, California · Remote support worldwide</div>
+</footer>
+</div>
+
+<script>
+  (function(){
+    var form = document.getElementById('contactForm');
+    var status = document.getElementById('formStatus');
+    var btn = document.getElementById('f-submit');
+
+    function say(msg, cls){ status.textContent = msg; status.className = 'form-status ' + (cls || ''); }
+
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      var data = new FormData(form);
+
+      if (!data.get('name').trim() || !data.get('message').trim()) {
+        say('Please add your name and a short message.', 'err'); return;
+      }
+      if (!data.get('email').trim() && !data.get('phone').trim()) {
+        say('Please add an email or phone number so I can reach you.', 'err'); return;
+      }
+      if (data.get('botcheck')) { return; }
+      if (data.get('access_key') === 'YOUR_ACCESS_KEY_HERE') {
+        say('This form is not active yet. Please call 916-668-0465 instead.', 'err'); return;
+      }
+
+      btn.disabled = true;
+      say('Sending...');
+      fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(Object.fromEntries(data))
+      })
+      .then(function(r){ return r.json().then(function(j){ return { ok: r.ok && j.success, j: j }; }); })
+      .then(function(res){
+        if (res.ok) { form.reset(); say('Thanks. Your message was sent, and I will get back to you soon.', 'ok'); }
+        else { say('Sorry, that did not go through. Please call 916-668-0465.', 'err'); }
+      })
+      .catch(function(){ say('Sorry, that did not go through. Please call 916-668-0465.', 'err'); })
+      .then(function(){ btn.disabled = false; });
+    });
+  })();
+</script>
+
+</body>
+</html>
